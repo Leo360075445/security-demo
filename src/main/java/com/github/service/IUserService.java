@@ -1,11 +1,13 @@
 package com.github.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.entity.SysUser;
+import com.github.domain.User;
 
 import java.util.List;
 
-public interface IUserService extends IService<SysUser> {
+public interface IUserService extends IService<User> {
 
-    List<SysUser> selectAllUsers();
+    List<User> selectAllUsers();
+
+    User selectUserByUserName(String username);
 }

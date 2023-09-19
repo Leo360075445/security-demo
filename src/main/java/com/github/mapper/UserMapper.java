@@ -1,11 +1,11 @@
 package com.github.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.entity.SysUser;
-import org.apache.ibatis.annotations.Mapper;
+import com.github.domain.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserMapper extends BaseMapper<SysUser> {
+public interface UserMapper extends BaseMapper<User> {
 
+    User selectUserByUserName(String username);
 }
