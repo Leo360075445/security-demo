@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()// 开启自动配置的表单登录功能
                 .and()
-                //关闭csrf (前后端分离)
+                //禁用csrf (CSRF：跨站请求伪造是一种常见的攻击方式)
+                //前后端分离的应用中，前端和后端可能不在同一域上，这种情况下受跨域限制，启用CSRF保护可能会导致正常的API请求失败
                 .csrf().disable()
                 //不通过Session获取SecurityContext
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -50,6 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 //授权失败处理器
                 .accessDeniedHandler(accessDeniedHandler);
+
+        // 配置 SpringSecurity 允许跨域 CORS(Cross-Origin Resource Sharing
+        // tips: 在分布式项目中一般会使用代理服务器,大多数情况下不会触发跨域问题
+        http.cors();
     }
 
     // 重新方法将 AuthenticationManager交给容器管理
