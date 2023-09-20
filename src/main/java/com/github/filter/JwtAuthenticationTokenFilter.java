@@ -16,6 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -45,11 +48,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (Objects.isNull(loginUser)) {
                 throw new RuntimeException("用户未登录");
             }
-            //TODO 获取权限信息封装到Authentication中
-
             //封装用户信息、权限信息
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(loginUser, null, null); //生成可信令牌必须使用3参构造器
+                    new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities()); //生成可信令牌必须使用3参构造器
             //存入 SecurityContextHolder
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }

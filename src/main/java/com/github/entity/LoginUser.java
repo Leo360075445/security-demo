@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.domain.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 用户登录类 (封装 User对象)
@@ -22,6 +25,9 @@ public class LoginUser implements UserDetails {
     private String token;
 
     private Set<String> permissions;
+
+    @JsonIgnore
+    private Set<GrantedAuthority> authorities;
 
     public LoginUser() {
     }
@@ -57,7 +63,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if(authorities != null){
+            return authorities;
+        }
+        //将 permissions权限信息封装到 GrantedAuthority的一个实现类中
+        authorities = permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        return authorities;
     }
 
     @JsonIgnore
