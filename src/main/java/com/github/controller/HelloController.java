@@ -6,10 +6,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
-public class TestController {
+public class HelloController {
 
     @GetMapping("/hello")
     public String hello(){
         return "hello";
+    }
+
+    @GetMapping("/hello2")
+    public String helloWithoutAuth(){
+        return "hello2";
     }
 }

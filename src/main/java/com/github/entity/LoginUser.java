@@ -1,6 +1,7 @@
 package com.github.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import java.util.Set;
  * @Author Leo
  * @Create 2023/9/19 16:36
  */
+@JsonIgnoreProperties(ignoreUnknown = true) //反序列化时忽略未知的字段
 public class LoginUser implements UserDetails {
 
     private User user;
@@ -66,7 +68,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return user.getUsername();
     }
 
     // 是否账号未过期
