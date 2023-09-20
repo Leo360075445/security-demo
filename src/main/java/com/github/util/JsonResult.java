@@ -14,7 +14,8 @@ public class JsonResult<T> {
 	
 	public static final int STATUS_CODE_OK = 200;
 	public static final int STATUS_CODE_ERROR = 500;
-	
+	public static final int STATUS_UNAUTHORIZED = 10001;
+
 	//@ApiModelProperty("状态码")
 	private Integer code;
 

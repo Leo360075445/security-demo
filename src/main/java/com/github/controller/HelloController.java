@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/hello")
-    public String hello(){
+    public String helloAnonymous(){
         return "hello";
     }
 
     @GetMapping("/hello2")
-    public String helloWithoutAuth(){
+    public String loginHello(){
+        /*String str = null;
+        str.equals("");*/
         return "hello2";
     }
 
