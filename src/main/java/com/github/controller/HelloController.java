@@ -16,8 +16,6 @@ public class HelloController {
 
     @GetMapping("/hello2")
     public String loginHello(){
-        /*String str = null;
-        str.equals("");*/
         return "hello2";
     }
 
@@ -25,5 +23,11 @@ public class HelloController {
     @PreAuthorize("hasAuthority('system:dept:list')")
     public String helloWithAuth(){
         return "hello3";
+    }
+
+    @GetMapping("/hello4")
+    @PreAuthorize("@exp.hasAuthority('system:dept:list')") //使用自定义权限校验方法 ==> 格式：@BeanName.MethodName()
+    public String helloWithCustomAuth(){
+        return "hello4";
     }
 }
